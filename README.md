@@ -91,3 +91,16 @@ console.log(b); // ReferenceError
 ```
 
 **[⬆ back to top](##table-of-contents)**
+
+## Objects
+----
+
+* 3.1 객체 생성은 리터럴 구문을 사용합니다. eslint: `no-new-object`
+
+```javascript
+// bad
+const item = new Object();
+
+// good
+const item = {};
+```
