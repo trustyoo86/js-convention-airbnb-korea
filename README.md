@@ -104,3 +104,27 @@ const item = new Object();
 // good
 const item = {};
 ```
+
+* 3.2 동적인 property의 이름을 사용하여 객체를 생성하는 경우, 프로그래밍된 property 이름을 사용합니다. (computed property name)
+
+> 해당 기능을 사용하면 한곳에서 객체의 모든 속성을 정의할 수 있습니다.
+
+```javascript
+function getKey(k) {
+  return `a key named ${k}`;
+}
+
+// bad
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+};
+obj[getKey('enabled')] = true;
+
+// good
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+  [getKey('enabled')]: true,
+};
+```
