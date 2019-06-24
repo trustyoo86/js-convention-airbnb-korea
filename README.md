@@ -128,3 +128,41 @@ const obj = {
   [getKey('enabled')]: true,
 };
 ```
+
+* 3.3 object내 method를 사용할시에는 shorthand 법칙을 사용합니다. eslint: `object-shorthand`
+
+```javascript
+// bad
+const atom = {
+  value: 1,
+
+  addValue: function (value) {
+    return atom.value + value;
+  },
+};
+
+// good
+const atom = {
+  value: 1,
+
+  addValue(value) {
+    return atom.value + value;
+  },
+};
+```
+
+* 3.4 object내 property를 사용시, shorthand 법칙을 따릅니다. eslint: `object-shorthand`
+
+```javascript
+const lukeSkywalker = 'Luke Skywalker';
+
+// bad
+const obj = {
+  lukeSkywalker: lukeSkywalker,
+};
+
+// good
+const obj = {
+  lukeSkywalker,
+};
+```
