@@ -6,6 +6,7 @@
 ## TOC (Table-of-contents)
 1. [Types](#types)
 1. [Refrences](#references)
+1. [Objects](#objects)
 
 ## Types
 ----
@@ -128,3 +129,127 @@ const obj = {
   [getKey('enabled')]: true,
 };
 ```
+
+* 3.3 object내 method를 사용할시에는 shorthand 법칙을 사용합니다. eslint: `object-shorthand`
+
+```javascript
+// bad
+const atom = {
+  value: 1,
+
+  addValue: function (value) {
+    return atom.value + value;
+  },
+};
+
+// good
+const atom = {
+  value: 1,
+
+  addValue(value) {
+    return atom.value + value;
+  },
+};
+```
+
+* 3.4 object내 property를 사용시, shorthand 법칙을 따릅니다. eslint: `object-shorthand`
+
+```javascript
+const lukeSkywalker = 'Luke Skywalker';
+
+// bad
+const obj = {
+  lukeSkywalker: lukeSkywalker,
+};
+
+// good
+const obj = {
+  lukeSkywalker,
+};
+```
+
+* 3.5 Object 선언 시작부분에 shorthand 내용을 적용합니다.
+> 이유: shorthand를 적용한 property에 대한 가독성을 높일 수 있습니다.
+
+```javascript
+const anakinSkywalker = 'Anakin Skywalker';
+const lukeSkywalker = 'Luke Skywalker';
+
+// bad
+const obj = {
+  episodeOne: 1,
+  twoJediWalkIntoACantina: 2,
+  lukeSkywalker,
+  episodeThree: 3,
+  mayTheFourth: 4,
+  anakinSkywalker,
+};
+
+// good
+const obj = {
+  lukeSkywalker,
+  anakinSkywalker,
+  episodeOne: 1,
+  twoJediWalkIntoACantina: 2,
+  episodeThree: 3,
+  mayTheFourth: 4,
+};
+```
+
+* 3.6 유효하지 않은 property 내용에 경우에만 quote (')를 사용합니다. eslint: `quote-props`
+> 이유: js엔진 최적화 및 가독성을 높일 수 있습니다.
+
+```javascript
+// bad
+const bad = {
+  'foo': 3,
+  'bar': 4,
+  'data-blah': 5,
+};
+
+// good
+const good = {
+  foo: 3,
+  bar: 4,
+  'data-blah': 5,
+};
+```
+
+* 3.7 `Object.prototype` 메소드를 직접 사용하지 않습니다. - call, apply등을 통해서 사용합니다. (예를 들면 `hasOwnProperty`, `propertyIsEnumerable`, `isPrototypeOf` 등) eslint: `no-prototype-builtins`
+> 이유: 위와같은 Object.prototype등의 메소드는 속성에따라 무시될 수 있습니다. 예를들면, `{hasOwnProperty: false}` 혹은 null객체가 될 수 있습니다. `(Object.create(null))`
+
+```javascript
+// bad
+console.log(object.hasOwnProperty(key));
+
+// good
+console.log(Object.prototype.hasOwnProperty.call(object, key));
+
+// best
+const has = Object.prototype.hasOwnProperty; // cache the lookup once, in module scope.
+/* or */
+import has from 'has'; // https://www.npmjs.com/package/has
+// ...
+console.log(has.call(object, key));
+```
+
+* 3.8 얕은 객체 복사에 대해서는 `Object.assign` 보다 Object내 spread를 사용합니다. 객체내 정의되지 않은 새 개체를 추출할 경우 rest operator를 사용합니다.
+
+```javascript
+// very bad
+const original = { a: 1, b: 2 };
+const copy = Object.assign(original, { c: 3 }); // this mutates `original` ಠ_ಠ
+delete copy.a; // so does this
+
+// bad
+const original = { a: 1, b: 2 };
+const copy = Object.assign({}, original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
+
+// good
+const original = { a: 1, b: 2 };
+const copy = { ...original, c: 3 }; // copy => { a: 1, b: 2, c: 3 }
+
+const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
+```
+
+**[⬆ back to top](##table-of-contents)**
