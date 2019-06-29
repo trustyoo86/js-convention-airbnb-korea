@@ -253,3 +253,28 @@ const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
 ```
 
 **[⬆ back to top](##table-of-contents)**
+
+## Arrays
+----
+
+* 4.1 Array생성은 리터럴 구문을 사용합니다. eslint: `no-array-constructor`
+
+```javascript
+// bad
+const items = new Array();
+
+// good
+const items = [];
+```
+
+* 4.2 Array내 아이템 삽입시 `Array.push`를 사용합니다.
+
+```javascript
+const someStack = [];
+
+// bad
+someStack[someStack.length] = 'abracadabra';
+
+// good
+someStack.push('abracadabra');
+```
