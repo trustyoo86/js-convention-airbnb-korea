@@ -7,9 +7,9 @@
 1. [Types](#types)
 1. [Refrences](#references)
 1. [Objects](#objects)
+1. [Arrays](#arrays)
 
 ## Types
-----
 * 1.1 *Primitives*: privitive타입을 사용하는 경우 해당 value에 직접 접근이 가능합니다.
 
 - `string`
@@ -94,7 +94,6 @@ console.log(b); // ReferenceError
 **[⬆ back to top](##table-of-contents)**
 
 ## Objects
-----
 
 * 3.1 객체 생성은 리터럴 구문을 사용합니다. eslint: `no-new-object`
 
@@ -255,7 +254,6 @@ const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
 **[⬆ back to top](##table-of-contents)**
 
 ## Arrays
-----
 
 * 4.1 Array생성은 리터럴 구문을 사용합니다. eslint: `no-array-constructor`
 
@@ -277,4 +275,32 @@ someStack[someStack.length] = 'abracadabra';
 
 // good
 someStack.push('abracadabra');
+```
+
+* 4.3 Array를 복사하기 위해서 spread구문 `...`을 사용합니다.
+
+```javascript
+// bad
+const len = items.length;
+const itemsCopy = [];
+let i;
+
+for (i = 0; i < len; i += 1) {
+  itemsCopy[i] = items[i];
+}
+
+// good
+const itemsCopy = [...items];
+```
+
+* 4.4 반복가능한(iterable) object를 array로 변환하기 위해서 spread구문 `...`을 `Array.from` 대신 사용합니다.
+
+```javascript
+const foo = document.querySelectorAll('.foo');
+
+// good
+const nodes = Array.from(foo);
+
+// best
+const nodes = [...foo];
 ```
