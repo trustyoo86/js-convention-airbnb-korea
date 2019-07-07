@@ -304,3 +304,15 @@ const nodes = Array.from(foo);
 // best
 const nodes = [...foo];
 ```
+
+* 4.5 Array와 유사한 object 사용시에는 `array.from`을 사용합니다.
+
+```javascript
+const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 };
+
+// bad
+const arr = Array.prototype.slice.call(arrLike);
+
+// good
+const arr = Array.from(arrLike);
+```
