@@ -316,3 +316,13 @@ const arr = Array.prototype.slice.call(arrLike);
 // good
 const arr = Array.from(arrLike);
 ```
+
+* 4.6 중간배열을 생성하는 것을 방지하기 위해서 spread 구문 `...` 대신 `Array.from`을 사용합니다.
+
+```javascript
+// bad
+const baz = [...foo].map(bar);
+
+// good
+const baz = Array.from(foo, bar);
+```
