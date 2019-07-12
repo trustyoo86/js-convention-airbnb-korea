@@ -326,3 +326,48 @@ const baz = [...foo].map(bar);
 // good
 const baz = Array.from(foo, bar);
 ```
+
+* 4.7 배열의 메소드 콜백을 사용하는 경우 return을 사용합니다. 함수 본문이 side effect 없이 표현식을 반환하는
+단일 구성문의 경우 반환을 생략해도 됩니다. eslint: `array-callback-return`
+
+```javascript
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map(x => x + 1);
+
+// bad - no returned value means `acc` becomes undefined after the first iteration
+[[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
+  const flatten = acc.concat(item);
+});
+
+// good
+[[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
+  const flatten = acc.concat(item);
+  return flatten;
+});
+
+// bad
+inbox.filter((msg) => {
+  const { subject, author } = msg;
+  if (subject === 'Mockingbird') {
+    return author === 'Harper Lee';
+  } else {
+    return false;
+  }
+});
+
+// good
+inbox.filter((msg) => {
+  const { subject, author } = msg;
+  if (subject === 'Mockingbird') {
+    return author === 'Harper Lee';
+  }
+
+  return false;
+});
+```
