@@ -371,3 +371,41 @@ inbox.filter((msg) => {
   return false;
 });
 ```
+
+* 4.8 배열의 열이 여러행을 가진 경우 해당 item을 띄워쓰기 합니다.
+
+```javascript
+// bad
+const arr = [
+  [0, 1], [2, 3], [4, 5],
+];
+
+const objectInArray = [{
+  id: 1,
+}, {
+  id: 2,
+}];
+
+const numberInArray = [
+  1, 2,
+];
+
+// good
+const arr = [[0, 1], [2, 3], [4, 5]];
+
+const objectInArray = [
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+];
+
+const numberInArray = [
+  1,
+  2,
+];
+```
+
+**[⬆ back to top](##table-of-contents)**
